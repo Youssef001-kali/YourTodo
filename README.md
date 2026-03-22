@@ -38,36 +38,35 @@ Before you can fire up the project, ensure your development environment is prepa
 
 ### Install Node.js (v22+ recommended):
 #### On Arch Linux
-sudo pacman -S nodejs npm
+    sudo pacman -S nodejs npm
 
 ### Install Dependencies:
-npm install   # For development (installs devDeps like nodemon)
-npm ci        # For a clean, locked-version install
+    npm install   # For development (installs devDeps like nodemon)
+    npm ci        # For a clean, locked-version install
 
 ### Database
 This project uses MongoDB as its primary data store. In this architecture, the database is fully containerized and isolated.
 
-    Automated Setup: When running via docker-compose, a MongoDB instance is automatically provisioned.
+  Automated Setup: When running via docker-compose, a MongoDB instance is automatically provisioned.
 
-    Data Persistence: A Docker volume (mongodb_data) is mapped to ensure your tasks and user profiles survive container restarts or removals.
+  Data Persistence: A Docker volume (mongodb_data) is mapped to ensure your tasks and user profiles survive container restarts or removals.
 
-    Security: The database is not exposed to the host machine. It communicates with the Node.js backend exclusively through an internal Docker network, making it invisible to external network scans.
+  Security: The database is not exposed to the host machine. It communicates with the Node.js backend exclusively through an internal Docker network, making it invisible to external network scans.
 
 ### Docker & Infrastructure
 #### To run the full "Reverse Proxy + API" stack, you must have Docker and Docker Compose installed.
 #### install Docker (arch linux):
-sudo pacman -S docker docker-compose
-sudo systemctl enable --now docker
-sudo usermod -aG docker $USER  # Logout and back in after this!
+    sudo pacman -S docker docker-compose
+    sudo systemctl enable --now docker
+    sudo usermod -aG docker $USER  # Logout and back in after this!
 
 ### 3. Cryptographic Assets (SSL)
 you can check README.md in the Server/ssl folder for informations about the caertificats
 
-
 ## How to Interact with the API
 Since this is a Headless API, you should use Postman, Insomnia, or cURL to interact with the endpoints.
   ### Initialize the Session:
-    GET https://localhost/csrf-token -> Capture the token from the response JSON.
+      GET https://localhost/csrf-token -> Capture the token from the response JSON.
   ## Authenticate: 
       POST https://localhost/authentication/log-in
       Headers: x-csrf-token: <your-captured-token>
@@ -79,6 +78,7 @@ Since this is a Headless API, you should use Postman, Insomnia, or cURL to inter
 
 ## One-Command Launch
 Once your .env is populated and your SSL certs are generated:
-docker-compose up --build -d
+
+    docker-compose up --build -d
 
 ENJOY!
