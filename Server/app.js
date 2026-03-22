@@ -180,12 +180,6 @@ app.use(
   require("../Routes/Private-routes/recovery-routes/recovery.js"),
 );
 
-app.use(
-  "/others/current-user",
-  verifyJWT,
-  require("../Routes/Debugging-routes/displayCurrentUser.js"),
-);
-
 // CSRF error handler
 app.use((err, req, res, next) => {
   if (err === invalidCsrfTokenError) {
